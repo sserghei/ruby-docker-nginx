@@ -1,0 +1,38 @@
+version: '3.1'
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: './docker/web/Dockerfile'
+    depends_on:
+      - 'app'
+    ports:
+      - '80:80'
+
+  postgres:
+    image: 'postgres:10-alpine'
+    restart: 'always'
+    environment:
+      POSTGRES_USER: ${PG_USER}
+      POSTGRES_PASSWORD: ${PG_PASSWORD}
+    ports:
+      - '5435:5432'
+    volumes:
+      - 'postgres:/var/lib/postgresql/data'
+
+  app:
+    depends_on:
+      - 'postgres'
+    build:
+      context: .
+      dockerfile: './docker/app/Dockerfile'
+    ports:
+      - '3000:3000'
+    volumes:
+      - '.:/app'
+    env_file:
+      - '.env'
+
+volumes:
+  postgres:

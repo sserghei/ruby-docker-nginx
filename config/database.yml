@@ -1,0 +1,25 @@
+
+default: &default
+  host: postgres
+  adapter: postgresql
+  encoding: unicode
+  timeout: <%= ENV['DATABASE_TIMEOUT'] %>
+  pool: <%= ENV['DATABASE_POOL_SIZE'] %>
+
+test:
+  <<: *default
+  database: <%= ENV['DATABASE_NAME_TEST'] %>
+  username: <%= ENV['DATABASE_USERNAME'] %>
+  password: <%= ENV['DATABASE_PASSWORD'] %>
+
+development:
+  <<: *default
+  database: <%= ENV['DATABASE_NAME_DEVELOP'] %>
+  username: <%= ENV['DATABASE_USERNAME'] %>
+  password: <%= ENV['DATABASE_PASSWORD'] %>
+
+production:
+  <<: *default
+  database: <%= ENV['DATABASE_NAME_PRODUCTION'] %>
+  username: <%= ENV['DATABASE_USERNAME'] %>
+  password: <%= ENV['DATABASE_PASSWORD'] %>

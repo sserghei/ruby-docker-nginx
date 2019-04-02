@@ -14,7 +14,6 @@ COPY Gemfile.lock Gemfile.lock
 
 RUN bundle install --binstubs
 COPY . .
-RUN bundle exec rake assets:precompile
 
 EXPOSE 3000
 
